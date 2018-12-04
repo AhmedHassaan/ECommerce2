@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "121638540166",
+    "firebase_url": "https://ecommerce-994e9.firebaseio.com",
+    "project_id": "ecommerce-994e9",
+    "storage_bucket": "ecommerce-994e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121638540166:android:face50291c966fc3",
+        "android_client_info": {
+          "package_name": "com.example.lenovo.e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121638540166-kvbde2uc4cck9l2eab4n2oool1thmnfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lenovo.e_commerce",
+            "certificate_hash": "16e1ec0c801123a32f313a4f907e16bb840e8dd3"
+          }
+        },
+        {
+          "client_id": "121638540166-vsi55m2as1f1jrrvmpbeaotp1r55cbee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRs2Kxqs7yEUC1LNU6hbkwrcJ6nEt9F4c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121638540166-vsi55m2as1f1jrrvmpbeaotp1r55cbee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

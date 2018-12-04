@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">E-Commerce</string>
+    <string name="fullnameTxt">Full Name</string>
+    <string name="passwordTxt">Password</string>
+    <string name="repasswordTxt">Retype Password</string>
+    <string name="emailTxt">Email</string>
+    <string name="usernameTxt">Username</string>
+    <string name="signupTxt">Sign Up</string>
+</resources>
