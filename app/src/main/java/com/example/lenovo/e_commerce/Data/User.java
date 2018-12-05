@@ -1,14 +1,40 @@
 package com.example.lenovo.e_commerce.Data;
 
 public class User {
-    private String username,password,email,fullName,creditNumber;
+    private String username,CID,BDay,
+                password,email,gender,
+                fullName,job;
 
-    public String getCreditNumber() {
-        return creditNumber;
+    public String getCID() {
+        return CID;
     }
 
-    public void setCreditNumber(String creditNumber) {
-        this.creditNumber = creditNumber;
+    public void setCID(String CID) {
+        this.CID = CID;
+    }
+
+    public String getBDay() {
+        return BDay;
+    }
+
+    public void setBDay(String BDay) {
+        this.BDay = BDay;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 
     public String getUsername() {

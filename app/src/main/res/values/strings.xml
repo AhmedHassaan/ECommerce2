@@ -8,4 +8,7 @@
     <string name="signupTxt">Sign Up</string>
     <string name="signinTxt">Sign In</string>
     <string name="creditcardTxt">Credit Card Number</string>
+    <string name="jobTxt">Job</string>
+    <string name="bdayTxt">Birthdate (dd/mm/yyyy)</string>
+    <string name="genderTxt">Gender</string>
 </resources>
