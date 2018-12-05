@@ -1,9 +1,9 @@
 package com.example.lenovo.e_commerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.example.lenovo.e_commerce.Data.User;
@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void signup(View view){
 
         //region adding to database
-        if(!isEmpty(allTexts)){
+        if(!neededThings.isEmpty(allTexts)){
             if(mSignupPassword.getText().toString().equalsIgnoreCase(mSignupRePassword.getText().toString())){
                 if(!searchUsername(mSignupUsername.getText().toString())){
                     if(!searchEmail(mSignupEmail.getText().toString())){
@@ -61,6 +61,9 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setCreditNumber(mSignupCreditCard.getText().toString());
                         myRef.child("Users").child(user.getUsername()).setValue(user);
                         neededThings.showToast(getApplicationContext(),"Registered Successfully");
+                        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                     else
                         neededThings.showToast(getApplicationContext(),"This Email is already registered");
@@ -85,16 +88,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private boolean isEmpty(ArrayList<TextInputEditText> texts){
-        boolean isEmpty = false;
-        for (TextInputEditText editTxt:texts) {
-            if(TextUtils.isEmpty(editTxt.getText().toString())) {
-                editTxt.setError("Can't be Empty");
-                isEmpty = true;
-            }
-        }
-        return isEmpty;
-    }
     private boolean searchUsername(String username){
         for(User user: neededThings.users)
             if(user.getUsername().equalsIgnoreCase(username))

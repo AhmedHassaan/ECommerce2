@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         neededThings.users = new ArrayList<>();
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                neededThings.showToast(getApplicationContext(),"There is a connection error pls check your connection then try again");
             }
         };
         myRef.addChildEventListener(childEventListener);
