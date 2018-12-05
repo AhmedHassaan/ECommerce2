@@ -6,4 +6,5 @@
     <string name="emailTxt">Email</string>
     <string name="usernameTxt">Username</string>
     <string name="signupTxt">Sign Up</string>
+    <string name="creditcardTxt">Credit Card Number</string>
 </resources>

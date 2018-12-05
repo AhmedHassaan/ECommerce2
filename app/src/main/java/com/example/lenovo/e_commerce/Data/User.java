@@ -1,7 +1,15 @@
 package com.example.lenovo.e_commerce.Data;
 
 public class User {
-    private String username,password,email,fullName;
+    private String username,password,email,fullName,creditNumber;
+
+    public String getCreditNumber() {
+        return creditNumber;
+    }
+
+    public void setCreditNumber(String creditNumber) {
+        this.creditNumber = creditNumber;
+    }
 
     public String getUsername() {
         return username;

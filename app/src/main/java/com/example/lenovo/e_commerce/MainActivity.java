@@ -2,14 +2,31 @@ package com.example.lenovo.e_commerce;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.lenovo.e_commerce.Data.User;
+import com.example.lenovo.e_commerce.Data.neededThings;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users");
+
         //region Write a message to the database
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -17,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         myRef.setValue("Hello");
         */
         //endregion
+
         //region Read from the database
         /*
         myRef.addValueEventListener(new ValueEventListener() {
@@ -39,7 +57,40 @@ public class MainActivity extends AppCompatActivity {
         */
         //endregion
 
-        Intent intent = new Intent(this,LogInActivity.class);
+
+
+
+        neededThings.users = new ArrayList<>();
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User user = dataSnapshot.getValue(User.class);
+                neededThings.users.add(user);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        myRef.addChildEventListener(childEventListener);
+
+        Intent intent = new Intent(this,SignUpActivity.class);
         startActivity(intent);
     }
 }
