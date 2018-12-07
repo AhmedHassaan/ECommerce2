@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.example.lenovo.e_commerce.Data.User;
 import com.example.lenovo.e_commerce.Data.neededThings;
@@ -27,15 +24,15 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private TextInputEditText mSignupJob;
-    private Spinner mSpinner;
     private TextInputEditText mSignupBday;
-    ArrayAdapter<String> spinnerAdapter;
-    String gender;
+    private TextInputEditText mSignupGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        //region Deceleration
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         allTexts = new ArrayList<>();
@@ -45,8 +42,10 @@ public class SignUpActivity extends AppCompatActivity {
         mSignupPassword = findViewById(R.id.signupPassword);
         mSignupRePassword = findViewById(R.id.signupRePassword);
         mSignupJob = findViewById(R.id.signupJob);
-        mSpinner = findViewById(R.id.spinner);
         mSignupBday = findViewById(R.id.signupBday);
+        mSignupGender = findViewById(R.id.signupGender);
+        //endregion
+
         allTexts.add(mSignupFullname);
         allTexts.add(mSignupEmail);
         allTexts.add(mSignupUsername);
@@ -54,17 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
         allTexts.add(mSignupRePassword);
         allTexts.add(mSignupJob);
         allTexts.add(mSignupBday);
-        spinnerAdapter = new ArrayAdapter<>(getApplicationContext(),R.layout.spinnerview);
-        spinnerAdapter.add("Male");
-        spinnerAdapter.add("Female");
-        mSpinner.setAdapter(spinnerAdapter);
-        gender = "Male";
-        mSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gender = spinnerAdapter.getItem(position);
-            }
-        });
+        allTexts.add(mSignupGender);
     }
 
     public void signup(View view){
@@ -80,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setPassword(mSignupPassword.getText().toString());
                         user.setUsername(mSignupUsername.getText().toString());
                         user.setBDay(mSignupBday.getText().toString());
-                        user.setGender(gender);
+                        user.setGender(mSignupGender.getText().toString());
                         user.setJob(mSignupJob.getText().toString());
                         myRef.child("Users").child(user.getUsername()).setValue(user);
                         neededThings.showToast(getApplicationContext(),"Registered Successfully");

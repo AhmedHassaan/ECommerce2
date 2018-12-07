@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         };
         myRef.addChildEventListener(childEventListener);
 
-        Intent intent = new Intent(this,SignUpActivity.class);
+        Intent intent = new Intent(this,LogInActivity.class);
         startActivity(intent);
     }
 }
