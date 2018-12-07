@@ -11,4 +11,6 @@
     <string name="jobTxt">Job</string>
     <string name="bdayTxt">Birthdate (dd/mm/yyyy)</string>
     <string name="genderTxt">Gender</string>
+    <string name="addToCartTxt">Add to Cart</string>
+
 </resources>
