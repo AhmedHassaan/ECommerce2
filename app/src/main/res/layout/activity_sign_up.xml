@@ -46,7 +46,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:nextFocusDown="@id/signupUsername"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:hint="@string/emailTxt" />
         </android.support.design.widget.TextInputLayout>
 

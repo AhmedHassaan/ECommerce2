@@ -1,15 +1,17 @@
 package com.example.lenovo.e_commerce.Data;
 
 public class User {
-    private String username,CID,BDay,
+    private String username,BDay,
                 password,email,gender,
                 fullName,job;
 
-    public String getCID() {
+    private int CID;
+
+    public int getCID() {
         return CID;
     }
 
-    public void setCID(String CID) {
+    public void setCID(int CID) {
         this.CID = CID;
     }
 

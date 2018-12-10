@@ -6,9 +6,16 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class neededThings {
     public static ArrayList<User> users;
+
+    public static ArrayList<Product> products;
+    public static ArrayList<Product> productsInCart;
+    public static Map<String,Product> categories;
+    public static int maximumID;
+    public static User currentUser;
 
     public neededThings(){
         users = new ArrayList<>();
@@ -35,6 +42,16 @@ public class neededThings {
                 return true;
         }
         return false;
+    }
+
+    public static ArrayList<String> getArrayListString(){
+        ArrayList<String> temp = new ArrayList<>();
+        for (Product p :
+                products) {
+            temp.add(p.getName());
+        }
+
+        return temp;
     }
 
 

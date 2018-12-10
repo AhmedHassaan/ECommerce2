@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.example.lenovo.e_commerce.Data.neededThings;
 import com.example.lenovo.e_commerce.Data.sharedPreferenceCustom;
@@ -17,6 +18,7 @@ public class LogInActivity extends AppCompatActivity {
     private TextInputEditText mSigninPassword;
     ArrayList<TextInputEditText> allTexts;
     sharedPreferenceCustom shared;
+    private CheckBox mCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,17 @@ public class LogInActivity extends AppCompatActivity {
         allTexts = new ArrayList<>();
         allTexts.add(mSigninPassword);
         allTexts.add(mSigninUsername);
+        mCheckBox = findViewById(R.id.checkBox);
+        if(shared.isSignedIn()){
+            if(neededThings.users.size()==0)
+                neededThings.showToast(getApplicationContext(),"Network Connection Error");
+            else{
+                neededThings.currentUser = shared.getCurrentUser();
+                Intent intent = new Intent(this,HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     public void signin(View view){
@@ -35,7 +48,8 @@ public class LogInActivity extends AppCompatActivity {
             String username = mSigninUsername.getText().toString();
             String password = mSigninPassword.getText().toString();
             if(neededThings.isFound(username,password)){
-                shared.setLogedIn(username);
+                if(mCheckBox.isChecked())
+                    shared.setLogedIn(username);
                 Intent intent = new Intent(this,HomeActivity.class);
                 startActivity(intent);
                 finish();

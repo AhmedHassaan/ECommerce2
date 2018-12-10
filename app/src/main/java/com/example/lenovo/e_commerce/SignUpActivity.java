@@ -64,6 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
                 if(!searchUsername(mSignupUsername.getText().toString())){
                     if(!searchEmail(mSignupEmail.getText().toString())){
                         User user = new User();
+                        user.setCID(neededThings.maximumID+1);
+                        neededThings.maximumID++;
                         user.setEmail(mSignupEmail.getText().toString());
                         user.setFullName(mSignupFullname.getText().toString());
                         user.setPassword(mSignupPassword.getText().toString());
@@ -71,7 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setBDay(mSignupBday.getText().toString());
                         user.setGender(mSignupGender.getText().toString());
                         user.setJob(mSignupJob.getText().toString());
-                        myRef.child("Users").child(user.getUsername()).setValue(user);
+                        myRef.child("Users").child(String.valueOf(user.getCID())).setValue(user);
                         neededThings.showToast(getApplicationContext(),"Registered Successfully");
                         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                         startActivity(intent);

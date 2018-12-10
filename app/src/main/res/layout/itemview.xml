@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,12 +25,12 @@
 
         <Button
             android:id="@+id/addToCartBtn"
-            android:layout_weight="0.3"
+            android:layout_weight="0.15"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:background="@android:color/transparent"
-            android:textSize="15dp"
+            android:textSize="12dp"
             android:text="@string/addToCartTxt" />
 
     </LinearLayout>
@@ -39,8 +39,9 @@
         android:id="@+id/noInStock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="10dp"
         android:textSize="15dp"
+        android:textColor="#808080"
         android:text="Out of Stock" />
 
 </LinearLayout>

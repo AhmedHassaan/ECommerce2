@@ -1,6 +1,6 @@
 package com.example.lenovo.e_commerce.Data;
 
-public class Categories {
+public class Category {
     String CID,cName;
 
     public String getCID() {
