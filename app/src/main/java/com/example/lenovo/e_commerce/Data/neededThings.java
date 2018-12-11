@@ -3,6 +3,7 @@ package com.example.lenovo.e_commerce.Data;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,9 +14,12 @@ public class neededThings {
 
     public static ArrayList<Product> products;
     public static ArrayList<Product> productsInCart;
-    public static Map<String,Product> categories;
+    public static ArrayList<Category> categories;
+    public static Map<Category,ArrayList<Product>> catwithProduct;
     public static int maximumID;
     public static User currentUser;
+
+
 
     public neededThings(){
         users = new ArrayList<>();
@@ -52,6 +56,30 @@ public class neededThings {
         }
 
         return temp;
+    }
+
+    public static void prepareCatWithPro(){
+        ArrayList<Product> tempP;
+        Category tempC;
+        for(int i=0;i<categories.size();i++){
+            tempC = categories.get(i);
+            tempP = new ArrayList<>();
+            for(int j=0;j<products.size();j++)
+                if(tempC.getCID().equalsIgnoreCase(products.get(j).getCID()))
+                    tempP.add(products.get(j));
+            catwithProduct.put(tempC,tempP);
+            Log.v("categories",tempC.getcName() + " " + tempP.size());
+        }
+    }
+
+    public static Product getProduct(String id){
+        Product p = null;
+        for(Product temp:products)
+            if(temp.getPID().equalsIgnoreCase(id)){
+                p = temp;
+                break;
+            }
+        return p;
     }
 
 

@@ -2,15 +2,7 @@ package com.example.lenovo.e_commerce.Data;
 
 public class Product {
     String PID,name,price,quantity,CID;
-    boolean inCart;
 
-    public boolean isInCart() {
-        return inCart;
-    }
-
-    public void setInCart(boolean inCart) {
-        this.inCart = inCart;
-    }
 
     public String getPID() {
         return PID;

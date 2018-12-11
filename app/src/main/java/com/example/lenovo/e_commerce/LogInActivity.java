@@ -33,7 +33,7 @@ public class LogInActivity extends AppCompatActivity {
         mCheckBox = findViewById(R.id.checkBox);
         if(shared.isSignedIn()){
             if(neededThings.users.size()==0)
-                neededThings.showToast(getApplicationContext(),"Network Connection Error");
+                neededThings.showToast(getApplicationContext(),"Something went error pls log in again");
             else{
                 neededThings.currentUser = shared.getCurrentUser();
                 Intent intent = new Intent(this,HomeActivity.class);

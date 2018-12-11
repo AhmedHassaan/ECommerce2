@@ -12,5 +12,10 @@
     <string name="bdayTxt">Birthdate (dd/mm/yyyy)</string>
     <string name="genderTxt">Gender</string>
     <string name="addToCartTxt">Add to Cart</string>
+    <string name="proTxt">Products</string>
+    <string name="catTxt">Categories</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

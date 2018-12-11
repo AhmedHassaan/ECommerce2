@@ -54,7 +54,6 @@ public class CartAdapter extends ArrayAdapter<Product> {
             public void onClick(View v) {
                 neededThings.showToast(context,products.get(position).getName());
                 removeInCart(position);
-                products.remove(position);
                 notifyDataSetChanged();
                 CartActivity.updateTotal();
 
@@ -69,9 +68,6 @@ public class CartAdapter extends ArrayAdapter<Product> {
     }
 
     public void removeInCart(int position){
-        int temp = neededThings.products.indexOf(products.get(position));
-        Product p = neededThings.products.get(temp);
-        p.setInCart(false);
-        neededThings.products.set(temp,p);
+        neededThings.productsInCart.remove(position);
     }
 }
