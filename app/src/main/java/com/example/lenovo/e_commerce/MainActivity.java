@@ -70,45 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
         neededThings.maximumID = 0;
         neededThings.users = new ArrayList<>();
-        ChildEventListener childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                User user = dataSnapshot.getValue(User.class);
-                neededThings.users.add(user);
-                neededThings.maximumID = user.getCID();
-            }
+        startListeners();
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                neededThings.showToast(getApplicationContext(),"There is a connection error pls check your connection then try again");
-            }
-        };
-        myRef.addChildEventListener(childEventListener);
-
-
-
-
-        //region temp product and category add
+        //region product and category add
         neededThings.productsInCart = new ArrayList<>();
         neededThings.products = new ArrayList<>();
         neededThings.catwithProduct = new HashMap<>();
@@ -185,6 +151,39 @@ public class MainActivity extends AppCompatActivity {
         };
         thread.start();
 
+    }
+
+
+    private void startListeners(){
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User user = dataSnapshot.getValue(User.class);
+                neededThings.users.add(user);
+                neededThings.maximumID = user.getCID();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                neededThings.showToast(getApplicationContext(),"There is a connection error pls check your connection then try again");
+            }
+        };
+        myRef.addChildEventListener(childEventListener);
     }
 
 
