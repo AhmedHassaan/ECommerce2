@@ -18,6 +18,7 @@ public class neededThings {
     public static Map<Category,ArrayList<Product>> catwithProduct;
     public static int maximumID;
     public static User currentUser;
+    public static ArrayList<Product> searchResult;
 
 
 
@@ -80,6 +81,20 @@ public class neededThings {
                 break;
             }
         return p;
+    }
+
+    public static void searchByName(String name){
+        searchResult.clear();
+        for(Product p:products)
+            if(p.getName().equalsIgnoreCase(name))
+                searchResult.add(p);
+    }
+
+    public static void searchByID(String id){
+        searchResult.clear();
+        for(Product p:products)
+            if(p.getPID().equalsIgnoreCase(id))
+                searchResult.add(p);
     }
 
 
