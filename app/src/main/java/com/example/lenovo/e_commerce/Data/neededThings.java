@@ -86,7 +86,7 @@ public class neededThings {
     public static void searchByName(String name){
         searchResult.clear();
         for(Product p:products)
-            if(p.getName().equalsIgnoreCase(name))
+            if(p.getName().contains(name))
                 searchResult.add(p);
     }
 

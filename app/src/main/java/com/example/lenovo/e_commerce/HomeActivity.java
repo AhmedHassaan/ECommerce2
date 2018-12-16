@@ -2,8 +2,13 @@ package com.example.lenovo.e_commerce;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -16,9 +21,12 @@ import com.example.lenovo.e_commerce.Data.sharedPreferenceCustom;
 import com.example.lenovo.e_commerce.Fragments.MainFragment;
 import com.example.lenovo.e_commerce.Fragments.SearchFragment;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
-
+    final int VOICE_ACTION = 120;
+    final int CAMERA_ACTION = 150;
 
     sharedPreferenceCustom shared;
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction(),
@@ -29,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
     private FrameLayout mSearchFragment;
     private EditText mSearchEditTxt;
     private FrameLayout mMainFragment;
+
+    boolean nameFlage = false;
 
 
     @Override
@@ -52,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 mSearchEditTxt.setFocusableInTouchMode(true);
+                nameFlage = true;
                 if(!up)
                 {
                     mSearchFragment.animate().yBy(-2000).setDuration(300).start();
@@ -59,6 +70,28 @@ public class HomeActivity extends AppCompatActivity {
                     up = true;
                 }
                 return false;
+            }
+        });
+
+        mSearchEditTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(nameFlage){
+                    if(!TextUtils.isEmpty(mSearchEditTxt.getText().toString()))
+                        searchFragment.searchByName(mSearchEditTxt.getText().toString());
+                    else
+                        searchFragment.clearLists();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -99,9 +132,40 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
         up = false;
+        mSearchEditTxt.setText("");
         mSearchEditTxt.setFocusable(false);
         mSearchFragment.animate().yBy(2000).setDuration(300).start();
         mMainFragment.animate().yBy(-2000).setDuration(300).start();
     }
 
+    public void voiceSearch(View view) {
+        if(!up)
+        {
+            mSearchFragment.animate().yBy(-2000).setDuration(300).start();
+            mMainFragment.animate().yBy(2000).setDuration(300).start();
+            up = true;
+        }
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        startActivityForResult(intent,VOICE_ACTION);
+    }
+
+    public void barcodeSearch(View view) {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == VOICE_ACTION && resultCode == RESULT_OK){
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            searchFragment.searchByName(result.get(0));
+            nameFlage = false;
+            mSearchEditTxt.setText(result.get(0));
+        }
+        else if(requestCode == CAMERA_ACTION && resultCode == RESULT_OK){
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            searchFragment.searchByID(result.get(0));
+            nameFlage = false;
+            mSearchEditTxt.setText(result.get(0));
+        }
+    }
 }

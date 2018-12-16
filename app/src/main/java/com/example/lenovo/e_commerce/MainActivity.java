@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         neededThings.products = new ArrayList<>();
         neededThings.catwithProduct = new HashMap<>();
         neededThings.categories = new ArrayList<>();
+        neededThings.searchResult = new ArrayList<>();
 
         Category c1;
         Product p1;
@@ -125,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
             p1.setName("cc");
             p1.setQuantity("0");
             p1.setPrice("30");
+            neededThings.products.add(p1);
+
+            p1 = new Product();
+            p1.setPID("5");
+            p1.setCID("1");
+            p1.setName("ac");
+            p1.setQuantity("5");
+            p1.setPrice("70");
             neededThings.products.add(p1);
 
         }
