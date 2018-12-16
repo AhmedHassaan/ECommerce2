@@ -97,5 +97,12 @@ public class neededThings {
                 searchResult.add(p);
     }
 
+    public static int getUser(String username, String email){
+        for(int i=0;i<users.size();i++)
+            if(users.get(i).getUsername().equalsIgnoreCase(username) && users.get(i).getEmail().equalsIgnoreCase(email))
+                return i;
+        return -1;
+    }
+
 
 }

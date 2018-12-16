@@ -18,5 +18,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="remeberMeTxt">Remeber Me?</string>
+    <string name="forgetPasswrodTxt">Forget Passwrod</string>
+    <string name="createAccTxt">Don\'t have an account? Signup</string>
+    <string name="reNewPassword">Re New Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="changePassword">Change Password</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.example.lenovo.e_commerce.Data.Category;
@@ -165,7 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                User user = dataSnapshot.getValue(User.class);
+                int index = neededThings.getUser(user.getUsername(),user.getEmail());
+                neededThings.users.remove(index);
+                neededThings.users.add(index,user);
+                Log.d("change",user.getPassword());
             }
 
             @Override

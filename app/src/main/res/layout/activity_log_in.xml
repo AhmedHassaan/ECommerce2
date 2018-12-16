@@ -52,32 +52,39 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="80dp"
         android:checked="false"
-        android:text="Remeber Me?" />
+        android:text="@string/remeberMeTxt" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:onClick="signin"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:text="@string/signinTxt"/>
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:onClick="goToSignUp"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:text="@string/signupTxt"/>
-    </LinearLayout>
+        android:layout_marginTop="15dp"
+        android:onClick="signin"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:text="@string/signinTxt"/>
+
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:onClick="goToForgetPassword"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:text="@string/forgetPasswrodTxt"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:onClick="goToSignUp"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:text="@string/createAccTxt"/>
 
 
 

@@ -20,9 +20,11 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".CartActivity" />
-        <activity android:name=".ViewDetails"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:label="Details"></activity>
+        <activity
+            android:name=".ViewDetails"
+            android:label="Details"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".ForgetPassword"></activity>
     </application>
 
 </manifest>
