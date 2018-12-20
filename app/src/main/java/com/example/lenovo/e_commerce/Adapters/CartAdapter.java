@@ -21,6 +21,8 @@ public class CartAdapter extends ArrayAdapter<Product> {
     int resources;
     LayoutInflater inflater;
     ArrayList<Product> products;
+    String priceTxt;
+    int total,num;
     public CartAdapter(Context context, int resource, ArrayList<Product> products){
         super(context,resource,products);
         this.context = context;
@@ -34,7 +36,7 @@ public class CartAdapter extends ArrayAdapter<Product> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        viewHolder holder;
+        final viewHolder holder;
 
         if(convertView==null){
             convertView = inflater.inflate(resources,null);
@@ -42,13 +44,24 @@ public class CartAdapter extends ArrayAdapter<Product> {
             holder.removeFromCart = convertView.findViewById(R.id.removeFromCartBtn);
             holder.name = convertView.findViewById(R.id.cartProductName);
             holder.price = convertView.findViewById(R.id.cartProductPrice);
+            holder.plus = convertView.findViewById(R.id.cartPlus);
+            holder.minus = convertView.findViewById(R.id.cartMinus);
             convertView.setTag(holder);
         }
         else
             holder = (viewHolder) convertView.getTag();
 
+        total = Integer.parseInt(products.get(position).getQuantity());
+        num = neededThings.noOfProductInCart.get(products.get(position));
+        if(total == num)
+            holder.plus.setVisibility(View.INVISIBLE);
+        if(num == 1)
+            holder.minus.setVisibility(View.INVISIBLE);
+
         holder.name.setText(products.get(position).getName());
-        holder.price.setText(products.get(position).getPrice());
+        priceTxt = String.valueOf(neededThings.noOfProductInCart.get(products.get(position))) + "X "
+                +String.valueOf(products.get(position).getPrice());
+        holder.price.setText(priceTxt);
         holder.removeFromCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +72,45 @@ public class CartAdapter extends ArrayAdapter<Product> {
 
             }
         });
+
+        holder.plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num = neededThings.noOfProductInCart.get(products.get(position)) + 1;
+                neededThings.noOfProductInCart.put(products.get(position),num);
+                neededThings.showToast(getContext(),String.valueOf(num));
+                priceTxt = String.valueOf(neededThings.noOfProductInCart.get(products.get(position))) + "X "
+                        +String.valueOf(products.get(position).getPrice());
+                holder.price.setText(priceTxt);
+                CartActivity.updateTotal();
+                total = Integer.parseInt(products.get(position).getQuantity());
+                holder.minus.setVisibility(View.VISIBLE);
+                if(total == num)
+                    holder.plus.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        holder.minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num = neededThings.noOfProductInCart.get(products.get(position)) - 1;
+                neededThings.noOfProductInCart.put(products.get(position),num);
+                neededThings.showToast(getContext(),String.valueOf(num));
+                priceTxt = String.valueOf(neededThings.noOfProductInCart.get(products.get(position))) + "X "
+                        +String.valueOf(products.get(position).getPrice());
+                holder.price.setText(priceTxt);
+                CartActivity.updateTotal();
+                total = Integer.parseInt(products.get(position).getQuantity());
+                holder.plus.setVisibility(View.VISIBLE);
+                if(num == 1)
+                    holder.minus.setVisibility(View.INVISIBLE);
+            }
+        });
         return convertView;
     }
 
     static class viewHolder{
-        TextView name,price;
+        TextView name,price,plus,minus;
         Button removeFromCart;
     }
 

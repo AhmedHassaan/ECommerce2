@@ -37,11 +37,56 @@
         android:layout_margin="10dp"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/detailsCart"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/detailsBuyOptions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_gravity="end"
         android:layout_margin="10dp"
-        android:text="Button" />
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/detailsMinus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:layout_gravity="end"
+            android:textSize="20dp"
+            android:background="@android:color/transparent"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/detailsInCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.07"
+            android:textSize="20dp"
+            android:text="12"
+            android:paddingTop="7dp"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/detailsPlus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:layout_gravity="end"
+            android:textSize="20dp"
+            android:background="@android:color/transparent"
+            android:text="+" />
+
+
+
+        <Button
+            android:id="@+id/detailsCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_gravity="end"
+            android:textSize="15dp"
+            android:background="@android:color/transparent"
+            android:text="Add to Cart" />
+
+    </LinearLayout>
 </LinearLayout>

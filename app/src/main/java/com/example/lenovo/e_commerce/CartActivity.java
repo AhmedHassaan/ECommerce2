@@ -40,7 +40,7 @@ public class CartActivity extends AppCompatActivity {
     public static void updateTotal(){
         total = 0;
         for (Product t:neededThings.productsInCart) {
-            total += Float.valueOf(t.getPrice());
+            total += (Float.valueOf(t.getPrice()) * neededThings.noOfProductInCart.get(t));
         }
         mTextView.setText(String.valueOf(total));
     }

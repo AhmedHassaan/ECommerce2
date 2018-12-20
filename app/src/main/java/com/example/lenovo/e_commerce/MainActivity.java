@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
-    DatabaseReference myRef;
+    DatabaseReference refUsers,refCat,refPro;
     sharedPreferenceCustom shared;
     private ProgressBar mProgressBar;
 
@@ -36,20 +36,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         mProgressBar = findViewById(R.id.progressBar);
-        myRef = database.getReference("Users");
+        refUsers = database.getReference("Users");
+        refCat = database.getReference("Categories");
+        refPro = database.getReference("Products");
         shared = new sharedPreferenceCustom(getApplicationContext());
 
         //region Write a message to the database
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello");
+        DatabaseReference refUsers = database.getReference("message");
+        refUsers.setValue("Hello");
         */
         //endregion
 
         //region Read from the database
         /*
-        myRef.addValueEventListener(new ValueEventListener() {
+        refUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         neededThings.catwithProduct = new HashMap<>();
         neededThings.categories = new ArrayList<>();
         neededThings.searchResult = new ArrayList<>();
+        neededThings.noOfProductInCart = new HashMap<>();
 
         Category c1;
         Product p1;
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startListeners(){
-        ChildEventListener childEventListener = new ChildEventListener() {
+        ChildEventListener childEventListenerUser = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
@@ -197,7 +200,71 @@ public class MainActivity extends AppCompatActivity {
                 neededThings.showToast(getApplicationContext(),"There is a connection error pls check your connection then try again");
             }
         };
-        myRef.addChildEventListener(childEventListener);
+        refUsers.addChildEventListener(childEventListenerUser);
+
+        ChildEventListener childEventListenerProduct = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Product product = dataSnapshot.getValue(Product.class);
+                neededThings.products.add(product);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Product product = dataSnapshot.getValue(Product.class);
+                int index = neededThings.getProductIndex(product.getPID());
+                neededThings.products.remove(index);
+                neededThings.products.add(index,product);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        refPro.addChildEventListener(childEventListenerProduct);
+
+        ChildEventListener childEventListenerCategory = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Category category = dataSnapshot.getValue(Category.class);
+                neededThings.categories.add(category);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Category category = dataSnapshot.getValue(Category.class);
+                int index = neededThings.getCategoryIndex(category.getCID());
+                neededThings.categories.remove(index);
+                neededThings.categories.add(index,category);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        refCat.addChildEventListener(childEventListenerCategory);
     }
 
 

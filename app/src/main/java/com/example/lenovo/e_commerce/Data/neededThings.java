@@ -16,6 +16,7 @@ public class neededThings {
     public static ArrayList<Product> productsInCart;
     public static ArrayList<Category> categories;
     public static Map<Category,ArrayList<Product>> catwithProduct;
+    public static Map<Product,Integer> noOfProductInCart;
     public static int maximumID;
     public static User currentUser;
     public static ArrayList<Product> searchResult;
@@ -101,6 +102,22 @@ public class neededThings {
         for(int i=0;i<users.size();i++)
             if(users.get(i).getUsername().equalsIgnoreCase(username) && users.get(i).getEmail().equalsIgnoreCase(email))
                 return i;
+        return -1;
+    }
+
+    public static int getProductIndex(String id){
+        for(int i=0;i<products.size();i++)
+            if(products.get(i).getPID().equalsIgnoreCase(id)){
+                return i;
+            }
+        return -1;
+    }
+
+    public static int getCategoryIndex(String id){
+        for(int i=0;i<categories.size();i++)
+            if(categories.get(i).getCID().equalsIgnoreCase(id)){
+                return i;
+            }
         return -1;
     }
 
