@@ -5,14 +5,14 @@ public class User {
                 password,email,gender,
                 fullName,job;
 
-    private int CID;
+    private int uid;
 
-    public int getCID() {
-        return CID;
+    public int getUid() {
+        return uid;
     }
 
-    public void setCID(int CID) {
-        this.CID = CID;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getBDay() {

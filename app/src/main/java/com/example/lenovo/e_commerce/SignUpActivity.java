@@ -21,7 +21,6 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText mSignupPassword;
     private TextInputEditText mSignupRePassword;
     private ArrayList<TextInputEditText> allTexts;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
     private TextInputEditText mSignupJob;
     private TextInputEditText mSignupBday;
@@ -33,8 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         //region Deceleration
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
+        myRef = FirebaseDatabase.getInstance().getReference();
         allTexts = new ArrayList<>();
         mSignupFullname = findViewById(R.id.signupFullname);
         mSignupEmail = findViewById(R.id.signupEmail);
@@ -64,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(!searchUsername(mSignupUsername.getText().toString())){
                     if(!searchEmail(mSignupEmail.getText().toString())){
                         User user = new User();
-                        user.setCID(neededThings.maximumID+1);
+                        user.setUid(neededThings.maximumID+1);
                         neededThings.maximumID++;
                         user.setEmail(mSignupEmail.getText().toString());
                         user.setFullName(mSignupFullname.getText().toString());
@@ -73,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setBDay(mSignupBday.getText().toString());
                         user.setGender(mSignupGender.getText().toString());
                         user.setJob(mSignupJob.getText().toString());
-                        myRef.child("Users").child(String.valueOf(user.getCID())).setValue(user);
+                        myRef.child("Users").child(String.valueOf(user.getUid())).setValue(user);
                         neededThings.showToast(getApplicationContext(),"Registered Successfully");
                         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                         startActivity(intent);
@@ -115,4 +113,11 @@ public class SignUpActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,LogInActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

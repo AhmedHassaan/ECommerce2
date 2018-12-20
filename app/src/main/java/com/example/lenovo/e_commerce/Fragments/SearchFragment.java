@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment {
         adapter.clear();
         neededThings.searchResult.clear();
         for(Product p:neededThings.products) {
-            if (p.getPID().equalsIgnoreCase(id)) {
+            if (p.getPid().equalsIgnoreCase(id)) {
                 adapter.add(p.getName());
                 neededThings.searchResult.add(p);
             }

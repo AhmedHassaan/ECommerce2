@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        neededThings.prepareCatWithPro();
         shared = new sharedPreferenceCustom(getApplicationContext());
         mSearchFragment = findViewById(R.id.searchFragment);
         mSearchEditTxt = findViewById(R.id.searchEditTxt);

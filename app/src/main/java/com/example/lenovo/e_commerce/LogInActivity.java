@@ -32,8 +32,10 @@ public class LogInActivity extends AppCompatActivity {
         allTexts.add(mSigninUsername);
         mCheckBox = findViewById(R.id.checkBox);
         if(shared.isSignedIn()){
-            if(neededThings.users.size()==0)
-                neededThings.showToast(getApplicationContext(),"Something went error pls log in again");
+            if(neededThings.users.size()==0) {
+                neededThings.showToast(getApplicationContext(), "Something went error pls log in again");
+                shared.setLogOut();
+            }
             else{
                 neededThings.currentUser = shared.getCurrentUser();
                 Intent intent = new Intent(this,HomeActivity.class);

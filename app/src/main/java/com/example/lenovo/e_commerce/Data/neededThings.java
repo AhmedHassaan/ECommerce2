@@ -67,17 +67,17 @@ public class neededThings {
             tempC = categories.get(i);
             tempP = new ArrayList<>();
             for(int j=0;j<products.size();j++)
-                if(tempC.getCID().equalsIgnoreCase(products.get(j).getCID()))
+                if(tempC.getCid().equalsIgnoreCase(products.get(j).getPcid()))
                     tempP.add(products.get(j));
             catwithProduct.put(tempC,tempP);
-            Log.v("categories",tempC.getcName() + " " + tempP.size());
+            Log.v("categories",tempC.getCname() + " " + tempP.size());
         }
     }
 
     public static Product getProduct(String id){
         Product p = null;
         for(Product temp:products)
-            if(temp.getPID().equalsIgnoreCase(id)){
+            if(temp.getPid().equalsIgnoreCase(id)){
                 p = temp;
                 break;
             }
@@ -94,7 +94,7 @@ public class neededThings {
     public static void searchByID(String id){
         searchResult.clear();
         for(Product p:products)
-            if(p.getPID().equalsIgnoreCase(id))
+            if(p.getPid().equalsIgnoreCase(id))
                 searchResult.add(p);
     }
 
@@ -107,7 +107,7 @@ public class neededThings {
 
     public static int getProductIndex(String id){
         for(int i=0;i<products.size();i++)
-            if(products.get(i).getPID().equalsIgnoreCase(id)){
+            if(products.get(i).getPid().equalsIgnoreCase(id)){
                 return i;
             }
         return -1;
@@ -115,7 +115,7 @@ public class neededThings {
 
     public static int getCategoryIndex(String id){
         for(int i=0;i<categories.size();i++)
-            if(categories.get(i).getCID().equalsIgnoreCase(id)){
+            if(categories.get(i).getCid().equalsIgnoreCase(id)){
                 return i;
             }
         return -1;

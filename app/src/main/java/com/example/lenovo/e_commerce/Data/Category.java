@@ -1,21 +1,21 @@
 package com.example.lenovo.e_commerce.Data;
 
 public class Category {
-    String CID,cName;
+    String cid, cname;
 
-    public String getCID() {
-        return CID;
+    public String getCid() {
+        return cid;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
-    public String getcName() {
-        return cName;
+    public String getCname() {
+        return cname;
     }
 
-    public void setcName(String cName) {
-        this.cName = cName;
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 }

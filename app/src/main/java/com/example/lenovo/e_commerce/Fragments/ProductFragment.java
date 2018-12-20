@@ -42,7 +42,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),ViewDetails.class);
-                intent.putExtra("pid",neededThings.products.get(position).getPID());
+                intent.putExtra("pid",neededThings.products.get(position).getPid());
                 startActivity(intent);
             }
         });

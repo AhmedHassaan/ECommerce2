@@ -1,15 +1,15 @@
 package com.example.lenovo.e_commerce.Data;
 
 public class Product {
-    String PID,name,price,quantity,CID;
+    String pid,name,price,quantity, pcid;
 
 
-    public String getPID() {
-        return PID;
+    public String getPid() {
+        return pid;
     }
 
-    public void setPID(String PID) {
-        this.PID = PID;
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getName() {
@@ -36,11 +36,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getCID() {
-        return CID;
+    public String getPcid() {
+        return pcid;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
+    public void setPcid(String pcid) {
+        this.pcid = pcid;
     }
 }

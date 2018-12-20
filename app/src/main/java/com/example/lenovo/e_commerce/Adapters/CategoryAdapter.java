@@ -70,7 +70,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String catTitle = getGroup(groupPosition).getcName();
+        String catTitle = getGroup(groupPosition).getCname();
         if(convertView == null){
             convertView = inflater.inflate(R.layout.expmainitem,null);
         }

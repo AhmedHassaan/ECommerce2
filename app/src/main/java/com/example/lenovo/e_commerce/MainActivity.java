@@ -28,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference refUsers,refCat,refPro;
     sharedPreferenceCustom shared;
     private ProgressBar mProgressBar;
+    private DatabaseReference myRef;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myRef = FirebaseDatabase.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         mProgressBar = findViewById(R.id.progressBar);
         refUsers = database.getReference("Users");
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         neededThings.users = new ArrayList<>();
         startListeners();
 
-        //region product and category add
+
         neededThings.productsInCart = new ArrayList<>();
         neededThings.products = new ArrayList<>();
         neededThings.catwithProduct = new HashMap<>();
@@ -87,61 +89,170 @@ public class MainActivity extends AppCompatActivity {
 
         Category c1;
         Product p1;
+
+        //region add in firebase
+        /*
         {
+
+
             c1 = new Category();
-            c1.setCID("1");
-            c1.setcName("Electronics");
+            c1.setCid("1");
+            c1.setCname("Music");
+            myRef.child("Categories").child(String.valueOf(c1.getCid())).setValue(c1);
+
+            c1 = new Category();
+            c1.setCid("2");
+            c1.setCname("Games");
+            myRef.child("Categories").child(String.valueOf(c1.getCid())).setValue(c1);
+
+            c1 = new Category();
+            c1.setCid("3");
+            c1.setCname("Clothes");
+            myRef.child("Categories").child(String.valueOf(c1.getCid())).setValue(c1);
+
+            c1 = new Category();
+            c1.setCid("4");
+            c1.setCname("Films");
+            myRef.child("Categories").child(String.valueOf(c1.getCid())).setValue(c1);
+
+
+            p1 = new Product();
+            p1.setPid("1");
+            p1.setPcid("1");
+            p1.setName("Demi Lovato - Unbroken");
+            p1.setQuantity("0");
+            p1.setPrice("20");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("2");
+            p1.setPcid("1");
+            p1.setName("Demi Lovato - Confident");
+            p1.setQuantity("1");
+            p1.setPrice("20");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("3");
+            p1.setPcid("2");
+            p1.setName("Diablo III");
+            p1.setQuantity("5");
+            p1.setPrice("15");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("4");
+            p1.setPcid("2");
+            p1.setName("Overwatch");
+            p1.setQuantity("2");
+            p1.setPrice("30");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+            p1 = new Product();
+            p1.setPid("5");
+            p1.setPcid("2");
+            p1.setName("Call Of duty VI");
+            p1.setQuantity("1");
+            p1.setPrice("60");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("6");
+            p1.setPcid("3");
+            p1.setName("white T-Shirt");
+            p1.setQuantity("4");
+            p1.setPrice("10");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("7");
+            p1.setPcid("4");
+            p1.setName("AquaMan Bluray");
+            p1.setQuantity("10");
+            p1.setPrice("50");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("8");
+            p1.setPcid("4");
+            p1.setName("Avengers 3");
+            p1.setQuantity("0");
+            p1.setPrice("40");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+            p1 = new Product();
+            p1.setPid("9");
+            p1.setPcid("4");
+            p1.setName("Black Panther");
+            p1.setQuantity("4");
+            p1.setPrice("30");
+            myRef.child("Products").child(String.valueOf(p1.getPid())).setValue(p1);
+
+
+
+
+            c1 = new Category();
+            c1.setUid("1");
+            c1.setCname("Electronics");
             neededThings.categories.add(c1);
 
             c1 = new Category();
-            c1.setCID("2");
-            c1.setcName("Games");
+            c1.setUid("2");
+            c1.setCname("Games");
             neededThings.categories.add(c1);
 
 
             p1 = new Product();
-            p1.setPID("1");
-            p1.setCID("1");
+            p1.setPid("1");
+            p1.setUid("1");
             p1.setName("aa");
             p1.setQuantity("2");
             p1.setPrice("20");
             neededThings.products.add(p1);
 
             p1 = new Product();
-            p1.setPID("2");
-            p1.setCID("1");
+            p1.setPid("2");
+            p1.setUid("1");
             p1.setName("dd");
             p1.setQuantity("5");
             p1.setPrice("10");
             neededThings.products.add(p1);
 
             p1 = new Product();
-            p1.setPID("3");
-            p1.setCID("1");
+            p1.setPid("3");
+            p1.setUid("1");
             p1.setName("bb");
             p1.setQuantity("1");
             p1.setPrice("50");
             neededThings.products.add(p1);
 
             p1 = new Product();
-            p1.setPID("4");
-            p1.setCID("2");
+            p1.setPid("4");
+            p1.setUid("2");
             p1.setName("cc");
             p1.setQuantity("0");
             p1.setPrice("30");
             neededThings.products.add(p1);
 
             p1 = new Product();
-            p1.setPID("5");
-            p1.setCID("1");
+            p1.setPid("5");
+            p1.setUid("1");
             p1.setName("ac");
             p1.setQuantity("5");
             p1.setPrice("70");
             neededThings.products.add(p1);
 
-        }
+            neededThings.prepareCatWithPro();
 
-        neededThings.prepareCatWithPro();
+        }
+        */
         //endregion
 
 
@@ -173,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 neededThings.users.add(user);
-                neededThings.maximumID = user.getCID();
+                neededThings.maximumID = user.getUid();
             }
 
             @Override
@@ -212,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product product = dataSnapshot.getValue(Product.class);
-                int index = neededThings.getProductIndex(product.getPID());
+                int index = neededThings.getProductIndex(product.getPid());
                 neededThings.products.remove(index);
                 neededThings.products.add(index,product);
             }
@@ -244,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Category category = dataSnapshot.getValue(Category.class);
-                int index = neededThings.getCategoryIndex(category.getCID());
+                int index = neededThings.getCategoryIndex(category.getCid());
                 neededThings.categories.remove(index);
                 neededThings.categories.add(index,category);
             }

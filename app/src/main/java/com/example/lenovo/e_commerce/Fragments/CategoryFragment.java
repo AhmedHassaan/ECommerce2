@@ -39,7 +39,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(getActivity(),ViewDetails.class);
-                intent.putExtra("pid",adapter.getChild(groupPosition,childPosition).getPID());
+                intent.putExtra("pid",adapter.getChild(groupPosition,childPosition).getPid());
                 startActivity(intent);
                 return false;
             }

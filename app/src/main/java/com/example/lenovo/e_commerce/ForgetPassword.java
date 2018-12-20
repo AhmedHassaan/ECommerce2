@@ -49,7 +49,7 @@ public class ForgetPassword extends AppCompatActivity {
                                                         ,mForgetEmail.getText().toString());
                 if(userIndex!=-1){
                     Log.d("test","in update");
-                    myRef.child("Users").child(String.valueOf(neededThings.users.get(userIndex).getCID())).
+                    myRef.child("Users").child(String.valueOf(neededThings.users.get(userIndex).getUid())).
                             child("password").setValue(newPassword);
                     neededThings.users.get(userIndex).setPassword(newPassword);
                     neededThings.showToast(getApplicationContext(),"Updated Successfully");
