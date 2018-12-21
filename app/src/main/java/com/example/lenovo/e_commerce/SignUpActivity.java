@@ -1,17 +1,23 @@
 package com.example.lenovo.e_commerce;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.DatePicker;
 
 import com.example.lenovo.e_commerce.Data.User;
 import com.example.lenovo.e_commerce.Data.neededThings;
+import com.example.lenovo.e_commerce.Data.sharedPreferenceCustom;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -26,6 +32,10 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText mSignupBday;
     private TextInputEditText mSignupGender;
 
+    Calendar calendar;
+    DatePickerDialog.OnDateSetListener date;
+    sharedPreferenceCustom shared;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //region Deceleration
         myRef = FirebaseDatabase.getInstance().getReference();
+        shared = new sharedPreferenceCustom(getApplicationContext());
         allTexts = new ArrayList<>();
         mSignupFullname = findViewById(R.id.signupFullname);
         mSignupEmail = findViewById(R.id.signupEmail);
@@ -42,6 +53,28 @@ public class SignUpActivity extends AppCompatActivity {
         mSignupJob = findViewById(R.id.signupJob);
         mSignupBday = findViewById(R.id.signupBday);
         mSignupGender = findViewById(R.id.signupGender);
+        mSignupBday.setFocusable(false);
+        calendar = Calendar.getInstance();
+
+        date  = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                mSignupBday.setText(sdf.format(calendar.getTime()));
+            }
+        };
+        mSignupBday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(SignUpActivity.this, date, calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
         //endregion
 
         allTexts.add(mSignupFullname);
@@ -63,7 +96,6 @@ public class SignUpActivity extends AppCompatActivity {
                     if(!searchEmail(mSignupEmail.getText().toString())){
                         User user = new User();
                         user.setUid(neededThings.maximumID+1);
-                        neededThings.maximumID++;
                         user.setEmail(mSignupEmail.getText().toString());
                         user.setFullName(mSignupFullname.getText().toString());
                         user.setPassword(mSignupPassword.getText().toString());
@@ -72,6 +104,8 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setGender(mSignupGender.getText().toString());
                         user.setJob(mSignupJob.getText().toString());
                         myRef.child("Users").child(String.valueOf(user.getUid())).setValue(user);
+                        shared.setLogedIn(user.getUsername());
+                        neededThings.currentUser = user;
                         neededThings.showToast(getApplicationContext(),"Registered Successfully");
                         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                         startActivity(intent);

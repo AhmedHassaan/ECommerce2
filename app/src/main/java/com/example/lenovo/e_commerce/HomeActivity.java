@@ -20,6 +20,8 @@ import com.example.lenovo.e_commerce.Data.neededThings;
 import com.example.lenovo.e_commerce.Data.sharedPreferenceCustom;
 import com.example.lenovo.e_commerce.Fragments.MainFragment;
 import com.example.lenovo.e_commerce.Fragments.SearchFragment;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private EditText mSearchEditTxt;
     private FrameLayout mMainFragment;
 
-    boolean nameFlage = false;
+    boolean changeFlag = false;
 
 
     @Override
@@ -63,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 mSearchEditTxt.setFocusableInTouchMode(true);
-                nameFlage = true;
+                changeFlag = true;
                 if(!up)
                 {
                     mSearchFragment.animate().yBy(-2000).setDuration(300).start();
@@ -82,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(nameFlage){
+                if(changeFlag){
                     if(!TextUtils.isEmpty(mSearchEditTxt.getText().toString()))
                         searchFragment.searchByName(mSearchEditTxt.getText().toString());
                     else
@@ -112,14 +114,17 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.cartBtn:
                 intent = new Intent(this,CartActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.logoutBtn:
                 intent = new Intent(this,LogInActivity.class);
                 neededThings.productsInCart.clear();
                 shared.setLogOut();
+                startActivity(intent);
+                finish();
                 break;
         }
-        startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,22 +156,30 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void barcodeSearch(View view) {
+        if(!up)
+        {
+            mSearchFragment.animate().yBy(-2000).setDuration(300).start();
+            mMainFragment.animate().yBy(2000).setDuration(300).start();
+            up = true;
+        }
+        new IntentIntegrator(HomeActivity.this).initiateScan();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(requestCode == VOICE_ACTION && resultCode == RESULT_OK){
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             searchFragment.searchByName(result.get(0));
-            nameFlage = false;
+            changeFlag = false;
             mSearchEditTxt.setText(result.get(0));
+            return;
         }
-        else if(requestCode == CAMERA_ACTION && resultCode == RESULT_OK){
-            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            searchFragment.searchByID(result.get(0));
-            nameFlage = false;
-            mSearchEditTxt.setText(result.get(0));
+        if(intentResult.getContents() != null){
+            searchFragment.searchByID(intentResult.getContents());
+            changeFlag = false;
+            mSearchEditTxt.setText(intentResult.getContents());
         }
     }
 }

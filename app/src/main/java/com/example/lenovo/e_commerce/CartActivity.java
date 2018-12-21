@@ -1,8 +1,11 @@
 package com.example.lenovo.e_commerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,7 +17,6 @@ public class CartActivity extends AppCompatActivity {
 
     private ListView mCartList;
     private static TextView mTextView;
-    private Button mCartBuyBtn;
     static float  total;
     CartAdapter adapter;
 
@@ -25,9 +27,9 @@ public class CartActivity extends AppCompatActivity {
         total = 0;
         mCartList = findViewById(R.id.cartList);
         mTextView = findViewById(R.id.textView);
-        mCartBuyBtn = findViewById(R.id.cartBuyBtn);
         adapter = new CartAdapter(getApplicationContext(),R.layout.cartview, neededThings.productsInCart);
         mCartList.setAdapter(adapter);
+
 
     }
 
@@ -37,11 +39,35 @@ public class CartActivity extends AppCompatActivity {
         updateTotal();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cartmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        neededThings.productsInCart.clear();
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        mTextView.setText("");
+        return super.onOptionsItemSelected(item);
+    }
+
     public static void updateTotal(){
         total = 0;
         for (Product t:neededThings.productsInCart) {
             total += (Float.valueOf(t.getPrice()) * neededThings.noOfProductInCart.get(t));
         }
-        mTextView.setText(String.valueOf(total));
+        if(total == 0)
+            mTextView.setText("");
+        else
+            mTextView.setText(String.valueOf(total));
+    }
+
+
+    public void completeBuy(View view) {
+        Intent intent = new Intent(this,CompleteOrder.class);
+        startActivity(intent);
     }
 }

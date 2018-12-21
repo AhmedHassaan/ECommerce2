@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.example.lenovo.e_commerce.Data.Category;
+import com.example.lenovo.e_commerce.Data.Order;
 import com.example.lenovo.e_commerce.Data.Product;
 import com.example.lenovo.e_commerce.Data.User;
 import com.example.lenovo.e_commerce.Data.neededThings;
@@ -24,23 +25,20 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseDatabase database;
-    DatabaseReference refUsers,refCat,refPro;
+    DatabaseReference refUsers,refCat,refPro,refOrder;
     sharedPreferenceCustom shared;
     private ProgressBar mProgressBar;
-    private DatabaseReference myRef;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myRef = FirebaseDatabase.getInstance().getReference();
-        database = FirebaseDatabase.getInstance();
         mProgressBar = findViewById(R.id.progressBar);
-        refUsers = database.getReference("Users");
-        refCat = database.getReference("Categories");
-        refPro = database.getReference("Products");
+        refUsers = FirebaseDatabase.getInstance().getReference("Users");
+        refCat = FirebaseDatabase.getInstance().getReference("Categories");
+        refPro = FirebaseDatabase.getInstance().getReference("Products");
+        refOrder = FirebaseDatabase.getInstance().getReference("Orders");
         shared = new sharedPreferenceCustom(getApplicationContext());
 
         //region Write a message to the database
@@ -77,18 +75,28 @@ public class MainActivity extends AppCompatActivity {
 
         neededThings.maximumID = 0;
         neededThings.users = new ArrayList<>();
-        startListeners();
-
-
         neededThings.productsInCart = new ArrayList<>();
         neededThings.products = new ArrayList<>();
         neededThings.catwithProduct = new HashMap<>();
         neededThings.categories = new ArrayList<>();
         neededThings.searchResult = new ArrayList<>();
         neededThings.noOfProductInCart = new HashMap<>();
+        neededThings.orderMaxID = 0;
+
+
+        startListeners();
 
         Category c1;
-        Product p1;
+        Product p1 = new Product();
+
+//        Order o = new Order();
+//        o.setAddress("a");
+//        o.setOdate("1");
+//        o.setOid("1");
+//        o.setOuid("1");
+//        o.addProduct("1","1");
+//        myRef.child("Orders").push().setValue(o);
+
 
         //region add in firebase
         /*
@@ -197,57 +205,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-            c1 = new Category();
-            c1.setUid("1");
-            c1.setCname("Electronics");
-            neededThings.categories.add(c1);
-
-            c1 = new Category();
-            c1.setUid("2");
-            c1.setCname("Games");
-            neededThings.categories.add(c1);
-
-
-            p1 = new Product();
-            p1.setPid("1");
-            p1.setUid("1");
-            p1.setName("aa");
-            p1.setQuantity("2");
-            p1.setPrice("20");
-            neededThings.products.add(p1);
-
-            p1 = new Product();
-            p1.setPid("2");
-            p1.setUid("1");
-            p1.setName("dd");
-            p1.setQuantity("5");
-            p1.setPrice("10");
-            neededThings.products.add(p1);
-
-            p1 = new Product();
-            p1.setPid("3");
-            p1.setUid("1");
-            p1.setName("bb");
-            p1.setQuantity("1");
-            p1.setPrice("50");
-            neededThings.products.add(p1);
-
-            p1 = new Product();
-            p1.setPid("4");
-            p1.setUid("2");
-            p1.setName("cc");
-            p1.setQuantity("0");
-            p1.setPrice("30");
-            neededThings.products.add(p1);
-
-            p1 = new Product();
-            p1.setPid("5");
-            p1.setUid("1");
-            p1.setName("ac");
-            p1.setQuantity("5");
-            p1.setPrice("70");
-            neededThings.products.add(p1);
 
             neededThings.prepareCatWithPro();
 
@@ -376,6 +333,49 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         refCat.addChildEventListener(childEventListenerCategory);
+
+        ChildEventListener childEventListenerOrder = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Order o = dataSnapshot.getValue(Order.class);
+                neededThings.orderMaxID = o.getOid();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        refOrder.addChildEventListener(childEventListenerOrder);
+
+//        refOrder.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                Order o = dataSnapshot.getValue(Order.class);
+//                if(o != null)
+//                    neededThings.orderMaxID = o.getOid();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
 

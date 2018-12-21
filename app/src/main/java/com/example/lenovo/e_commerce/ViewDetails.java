@@ -46,7 +46,10 @@ public class ViewDetails extends AppCompatActivity {
         mDetailsInCart.setText(String.valueOf(temp.getQuantity()));
         mDetailsCart.setText("Add to cart");
         mDetailsName.setText("Name: " + temp.getName());
-        mDetailsStock.setText("Available in Stock: " + temp.getQuantity());
+        if(temp.getQuantity().equalsIgnoreCase("0"))
+            mDetailsStock.setText("Out of stock");
+        else
+            mDetailsStock.setText("Available in Stock: " + temp.getQuantity());
         mDetailsPrice.setText("Price: " + temp.getPrice());
         mDetailsInCart.setText("1");
         mDetailsMinus.setVisibility(View.INVISIBLE);

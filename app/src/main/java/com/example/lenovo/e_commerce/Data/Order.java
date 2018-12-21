@@ -1,29 +1,31 @@
 package com.example.lenovo.e_commerce.Data;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
-    String OID,odate,CID,address;
-    ArrayList<Product> products;
+    String odate, address;
+    Map<String,Integer> oproducts;
+    int oid, ouid;
 
     public Order(){
-        products = new ArrayList<>();
-    }
-    public ArrayList<Product> getProducts() {
-        return products;
+        oproducts = new HashMap<>();
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = new ArrayList<>();
-        this.products = products;
+    public int getOid() {
+        return oid;
     }
 
-    public String getOID() {
-        return OID;
+    public void setOid(int oid) {
+        this.oid = oid;
     }
 
-    public void setOID(String OID) {
-        this.OID = OID;
+    public Map<String, Integer> getOproducts() {
+        return oproducts;
+    }
+
+    public void setOproducts(Map<String, Integer> oproducts) {
+        this.oproducts = oproducts;
     }
 
     public String getOdate() {
@@ -34,12 +36,12 @@ public class Order {
         this.odate = odate;
     }
 
-    public String getCID() {
-        return CID;
+    public int getOuid() {
+        return ouid;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
+    public void setOuid(int ouid) {
+        this.ouid = ouid;
     }
 
     public String getAddress() {
@@ -50,7 +52,7 @@ public class Order {
         this.address = address;
     }
 
-    public void addProduct(Product p){
-        products.add(p);
+    public void addProduct(String pid, Integer quantity){
+        oproducts.put(pid,quantity);
     }
 }

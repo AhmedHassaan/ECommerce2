@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
         allTexts.add(mSigninPassword);
         allTexts.add(mSigninUsername);
         mCheckBox = findViewById(R.id.checkBox);
-        if(shared.isSignedIn()){
+        if(shared.isRemeberME()){
             if(neededThings.users.size()==0) {
                 neededThings.showToast(getApplicationContext(), "Something went error pls log in again");
                 shared.setLogOut();
@@ -51,7 +51,9 @@ public class LogInActivity extends AppCompatActivity {
             String password = mSigninPassword.getText().toString();
             if(neededThings.isFound(username,password)){
                 if(mCheckBox.isChecked())
-                    shared.setLogedIn(username);
+                    shared.setRemeberMe();
+                shared.setLogedIn(username);
+                neededThings.currentUser = shared.getCurrentUser();
                 Intent intent = new Intent(this,HomeActivity.class);
                 startActivity(intent);
                 finish();

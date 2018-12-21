@@ -15,13 +15,17 @@ public class sharedPreferenceCustom {
         set = context.getSharedPreferences("user",context.MODE_PRIVATE).edit();
     }
 
-    public boolean isSignedIn(){
+    public boolean isRemeberME(){
         return get.getBoolean("logedin",false);
+    }
+
+    public void setRemeberMe(){
+        set.putBoolean("logedin",true);
+        set.commit();
     }
 
     public void setLogedIn(String username){
         set.putString("username",username);
-        set.putBoolean("logedin",true);
         set.commit();
     }
 

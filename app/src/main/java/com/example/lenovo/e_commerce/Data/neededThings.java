@@ -20,6 +20,7 @@ public class neededThings {
     public static int maximumID;
     public static User currentUser;
     public static ArrayList<Product> searchResult;
+    public static int orderMaxID;
 
 
 

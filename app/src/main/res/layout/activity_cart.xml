@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.15"
             android:background="@android:color/transparent"
+            android:onClick="completeBuy"
             android:textSize="18dp"
             android:text="BUY" />
 

@@ -26,5 +26,7 @@
     <string name="changePassword">Change Password</string>
     <string name="cartEditBtn">Edit</string>
     <string name="removeTxt">Remove</string>
+    <string name="doneTxt">Done</string>
+    <string name="cancelTxt">Cancel</string>
 
 </resources>

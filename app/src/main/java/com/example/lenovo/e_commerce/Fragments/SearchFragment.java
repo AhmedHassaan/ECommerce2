@@ -45,7 +45,7 @@ public class SearchFragment extends Fragment {
         adapter.clear();
         neededThings.searchResult.clear();
         for(Product p:neededThings.products) {
-            if (p.getName().contains(name)) {
+            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
                 neededThings.searchResult.add(p);
                 adapter.add(p.getName());
             }
