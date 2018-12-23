@@ -43,6 +43,9 @@ public class CompleteOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myRef.child("Orders").child(String.valueOf(order.getOid())).setValue(order);
+                neededThings.productsInCart.clear();
+                CartActivity.clear();
+                finish();
             }
         });
 

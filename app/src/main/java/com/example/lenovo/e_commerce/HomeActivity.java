@@ -115,7 +115,6 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.cartBtn:
                 intent = new Intent(this,CartActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.logoutBtn:
                 intent = new Intent(this,LogInActivity.class);

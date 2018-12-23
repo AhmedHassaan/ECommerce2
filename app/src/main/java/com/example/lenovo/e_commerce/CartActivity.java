@@ -18,7 +18,7 @@ public class CartActivity extends AppCompatActivity {
     private ListView mCartList;
     private static TextView mTextView;
     static float  total;
-    CartAdapter adapter;
+    static CartAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,11 @@ public class CartActivity extends AppCompatActivity {
             mTextView.setText(String.valueOf(total));
     }
 
+
+    public static void clear(){
+        adapter.notifyDataSetChanged();
+        updateTotal();
+    }
 
     public void completeBuy(View view) {
         Intent intent = new Intent(this,CompleteOrder.class);
