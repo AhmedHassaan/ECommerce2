@@ -28,5 +28,6 @@
     <string name="removeTxt">Remove</string>
     <string name="doneTxt">Done</string>
     <string name="cancelTxt">Cancel</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class CartActivity extends AppCompatActivity {
     private static TextView mTextView;
     static float  total;
     static CartAdapter adapter;
+    private Button mCartBuyBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +29,30 @@ public class CartActivity extends AppCompatActivity {
         total = 0;
         mCartList = findViewById(R.id.cartList);
         mTextView = findViewById(R.id.textView);
+        mCartBuyBtn = findViewById(R.id.cartBuyBtn);
         adapter = new CartAdapter(getApplicationContext(),R.layout.cartview, neededThings.productsInCart);
         mCartList.setAdapter(adapter);
-
-
+        mCartBuyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),CompleteOrder.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateTotal();
+        if(neededThings.productsInCart.size() == 0) {
+            mCartBuyBtn.setVisibility(View.INVISIBLE);
+            mCartBuyBtn.setEnabled(false);
+        }
+        else{
+            mCartBuyBtn.setVisibility(View.VISIBLE);
+            mCartBuyBtn.setEnabled(true);
+        }
     }
 
     @Override
@@ -71,8 +87,4 @@ public class CartActivity extends AppCompatActivity {
         updateTotal();
     }
 
-    public void completeBuy(View view) {
-        Intent intent = new Intent(this,CompleteOrder.class);
-        startActivity(intent);
-    }
 }
